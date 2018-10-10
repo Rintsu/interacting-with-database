@@ -23,7 +23,7 @@ let datenow = new Date(Date.now()).toLocaleString();
 function dataPulseReceived(data, timenow){
 	for(let i = 0; i < data.sensors.length; i++){
 		let sql = `INSERT INTO sensordata (measurement_time, sensor_id, station_id, measurement)
-							VALUES ("${timenow}", ${data.sensors[i].sensor_id}, ${data.station_id}, ${data.sensors[i].measurement})`;
+		VALUES ("${timenow}", ${data.sensors[i].sensor_id}, ${data.station_id}, ${data.sensors[i].measurement})`;
 			connection.query(sql, function(error, results){
 			if(error) reject(error);
 			else console.log(data.sensors.length + " rows added successfully to the database");
@@ -87,8 +87,8 @@ function selectSpecificSensorData(sensor_id){
 
 function changeStationStatus(station_id, station_status){
 	let sql = `UPDATE station
-						SET station_status = "${station_status}"
-						WHERE station_id = ${station_id}`;
+	SET station_status = "${station_status}"
+	WHERE station_id = ${station_id}`;
 	return new Promise((resolve, reject) => {
 		connection.query(sql, (error, results) => {
 			if(error) reject(error);
@@ -116,10 +116,10 @@ function getAllSensorData(){
 
 function getSensorDataByLocation(gps){
 	let sql = `SELECT sensordata.*
-						FROM sensordata, sensor, station
-						WHERE station.GPS = '60.17 24.94'
-						AND sensor.station_id = sensordata.station_id
-						AND station.station_id = sensor.station_id`;
+	FROM sensordata, sensor, station
+	WHERE station.GPS = '60.17 24.94'
+	AND sensor.station_id = sensordata.station_id
+	AND station.station_id = sensor.station_id`;
 	return new Promise((resolve, reject) => {
 		connection.query(sql, (error, results) => {
 			if(error) reject(error);
